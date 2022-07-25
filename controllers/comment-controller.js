@@ -21,6 +21,7 @@ const commentController = {
       })
       .catch((err) => res.json(err));
   },
+
   // remove comment
   removeComment({ params }, res) {
     Comment.findOneAndDelete({ _id: params.commentId })
@@ -28,7 +29,7 @@ const commentController = {
         if (!deletedComment) {
           return res.status(404).json({ message: "No comment with this id!" });
         }
-        return PizzaFindOneAndUpdate(
+        return Pizza.findOneAndUpdate(
           { _id: params.pizzaId },
           { $pull: { comments: params.commentId } },
           { new: true }
